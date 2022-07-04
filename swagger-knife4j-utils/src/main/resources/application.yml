@@ -1,0 +1,9 @@
+# 应用服务 WEB 访问端口
+server:
+  port: 6002
+  servlet:
+    context-path: /demo
+# 应用名称
+spring:
+  application:
+    name: swagger-knife4j-utils
