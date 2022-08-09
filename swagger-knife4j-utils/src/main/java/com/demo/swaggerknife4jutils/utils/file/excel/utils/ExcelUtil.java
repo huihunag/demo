@@ -1,14 +1,14 @@
 package com.demo.swaggerknife4jutils.utils.file.excel.utils;
 
-import com.tingcheai.ctway.admin.util.R;
-import com.tingcheai.ctway.admin.util.excel.common.Convert;
-import com.tingcheai.ctway.admin.util.excel.common.DateUtils;
-import com.tingcheai.ctway.admin.util.excel.common.ReflectUtils;
-import com.tingcheai.ctway.admin.util.excel.common.StringUtils;
-import com.tingcheai.ctway.admin.util.excel.core.Excel;
-import com.tingcheai.ctway.admin.util.excel.core.Excel.Type;
-import com.tingcheai.ctway.admin.util.excel.core.Excels;
-import com.tingcheai.ctway.admin.util.excel.exception.BusinessException;
+import com.demo.swaggerknife4jutils.common.ApiResult;
+import com.demo.swaggerknife4jutils.utils.file.excel.common.Convert;
+import com.demo.swaggerknife4jutils.utils.file.excel.common.DateUtils;
+import com.demo.swaggerknife4jutils.utils.file.excel.common.ReflectUtils;
+import com.demo.swaggerknife4jutils.utils.file.excel.common.StringUtils;
+import com.demo.swaggerknife4jutils.utils.file.excel.core.Excel;
+import com.demo.swaggerknife4jutils.utils.file.excel.core.Excel.Type;
+import com.demo.swaggerknife4jutils.utils.file.excel.core.Excels;
+import com.demo.swaggerknife4jutils.utils.file.excel.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.ss.usermodel.*;
@@ -262,7 +262,7 @@ public class ExcelUtil<T> {
      * @param sheetName 工作表的名称
      * @return 结果
      */
-    public R exportExcel(List<T> list, String sheetName, String downloadPath) {
+    public ApiResult exportExcel(List<T> list, String sheetName, String downloadPath) {
         download = downloadPath;
         this.init(list, sheetName, Type.EXPORT);
         return exportExcel();
@@ -274,7 +274,7 @@ public class ExcelUtil<T> {
      * @param sheetName 工作表的名称
      * @return 结果
      */
-    public R importTemplateExcel(String sheetName) {
+    public ApiResult importTemplateExcel(String sheetName) {
         this.init(null, sheetName, Type.IMPORT);
         return exportExcel();
     }
@@ -284,7 +284,7 @@ public class ExcelUtil<T> {
      *
      * @return 结果
      */
-    public R exportExcel() {
+    public ApiResult exportExcel() {
         OutputStream out = null;
         try {
             // 取出一共有多少个sheet.
@@ -307,7 +307,7 @@ public class ExcelUtil<T> {
             String filename = encodingFilename(sheetName);
             out = new FileOutputStream(getAbsoluteFile(filename));
             wb.write(out);
-            return R.ok(filename);
+            return ApiResult.success(filename);
         } catch (Exception e) {
             log.error("导出Excel异常{}", e);
             throw new BusinessException("导出Excel失败，请联系网站管理员！");
@@ -547,7 +547,7 @@ public class ExcelUtil<T> {
      * 编码文件名
      */
     public String encodingFilename(String filename) {
-        filename = UUID.randomUUID().toString() + "_" + filename + ".xlsx";
+        filename = System.currentTimeMillis() + "_" + filename + ".xlsx";
         return filename;
     }
 

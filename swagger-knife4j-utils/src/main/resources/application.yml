@@ -7,3 +7,9 @@ server:
 spring:
   application:
     name: swagger-knife4j-utils
+
+#自定义
+custom:
+  config:
+    file:
+      upDownloadAddr: /file
