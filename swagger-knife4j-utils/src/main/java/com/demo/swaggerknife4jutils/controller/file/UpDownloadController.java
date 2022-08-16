@@ -48,8 +48,6 @@ public class UpDownloadController {
 
             String filePath = System.getProperty("user.dir") + customFileConfig.getUpDownloadAddr() + "/" + fileName;
 
-
-
             response.setCharacterEncoding("utf-8");
             response.setContentType("multipart/form-data");
             response.setHeader("Content-Disposition",
@@ -61,7 +59,7 @@ public class UpDownloadController {
                 FileUtils.deleteFile(filePath);
             }
         } catch (Exception e) {
-            log.error("下载文件失败", e);
+            log.error("下载文件异常", e);
         }
     }
 
