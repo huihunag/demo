@@ -15,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
-import java.time.format.DateTimeFormatter;
 
 /**
  * @description: 文件上传下载
@@ -38,7 +37,7 @@ public class UpDownloadController {
      * @param delete   是否删除
      */
     @PostMapping("/download")
-    @ApiOperation(value = "通用下载请求", notes = "通用下载请求")
+    @ApiOperation(value = "通用下载请求", notes = "通用下载请求", produces = "application/octet-stream")
     public void fileDownload(String fileName, Boolean delete, HttpServletResponse response, HttpServletRequest request) {
         try {
             if (!FileUtils.isValidFilename(fileName)) {
