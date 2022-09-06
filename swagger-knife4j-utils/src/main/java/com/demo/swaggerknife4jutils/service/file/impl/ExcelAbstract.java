@@ -1,6 +1,5 @@
 package com.demo.swaggerknife4jutils.service.file.impl;
 
-import com.demo.swaggerknife4jutils.bean.excel.ExcelImport;
 import com.demo.swaggerknife4jutils.common.ApiResult;
 import com.demo.swaggerknife4jutils.config.CustomFileConfig;
 import com.demo.swaggerknife4jutils.utils.file.excel.utils.ExcelUtil;
@@ -8,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j

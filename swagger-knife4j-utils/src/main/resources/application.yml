@@ -1,12 +1,37 @@
+# 应用名称
+spring:
+  application:
+    name: swagger-knife4j-utils
+  datasource:
+    dynamic:
+      primary: master #设置默认的数据源或者数据源组,默认值即为master
+      strict: false #严格匹配数据源,默认false. true未匹配到指定数据源时抛异常,false使用默认数据源
+      datasource:
+        master:
+          url: jdbc:mysql://127.0.0.1:3306/mall?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone =Asia/Shanghai
+          username: root
+          password: huangxinwei
+        slave_1:
+          url: jdbc:mysql://127.0.0.1:3306/mall?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone =Asia/Shanghai
+          username: root
+          password: huangxinwei
+      hikari:
+        max-lifetime: 1800000
+        connection-timeout: 5000
+        idle-timeout: 3600000
+        max-pool-size: 12
+        min-idle: 4
+        connection-test-query: /**ping*/
+
+mybatis-plus:
+  # 支持统配符 * 或者 ; 分割
+  typeEnumsPackage: com.demo.swaggerknife4jutils.bean.enums
+
 # 应用服务 WEB 访问端口
 server:
   port: 6002
   servlet:
     context-path: /demo
-# 应用名称
-spring:
-  application:
-    name: swagger-knife4j-utils
 
 #自定义
 custom:

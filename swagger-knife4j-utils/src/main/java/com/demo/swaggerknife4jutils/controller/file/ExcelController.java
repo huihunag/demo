@@ -30,13 +30,11 @@ import java.util.List;
 public class ExcelController {
 
     @Autowired
-    private CustomFileConfig customFileConfig;
-    @Autowired
     private ExcelService excelService;
 
     @PostMapping("/export")
     @ResponseBody
-    @ApiOperation(value = "导出数据")
+    @ApiOperation("导出数据")
     public ApiResult exportData() {
         return excelService.exportData(ExcelImport.class);
     }
