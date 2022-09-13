@@ -36,4 +36,14 @@ public enum SexEnum implements IEnum<Integer> {
         return name;
     }
 
+    public static SexEnum bySexEnumtoCode(Integer code){
+        SexEnum[] sexEnums = SexEnum.values();
+        for (SexEnum sexEnum: sexEnums){
+            if(sexEnum.code.equals(code)){
+                return sexEnum;
+            }
+        }
+        return null;
+    }
+
 }
