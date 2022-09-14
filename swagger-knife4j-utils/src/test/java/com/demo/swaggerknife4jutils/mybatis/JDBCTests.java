@@ -1,4 +1,4 @@
-package com.demo.swaggerknife4jutils;
+package com.demo.swaggerknife4jutils.mybatis;
 
 import com.demo.swaggerknife4jutils.bean.enums.SexEnum;
 import com.demo.swaggerknife4jutils.bean.plus.UserDO;
@@ -7,9 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.sql.*;
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
 
 @SpringBootTest
@@ -17,19 +15,32 @@ public class JDBCTests {
 
     @Test
     void test() {
+        System.out.println(selectJDBC("select * from user"));
+    }
+
+    private static Connection  connection;
+    private static String url = "jdbc:mysql://127.0.0.1:3306/mall?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone =Asia/Shanghai";
+    private static String user = "root";
+    private static String password = "huangxinwei";
+    static {
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
+            connection = DriverManager.getConnection(url, user, password);
         }catch (ClassNotFoundException e){
             e.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
-        Connection connection = null;
+
+    }
+
+    public static Object selectJDBC(String sql){
         Statement statement = null;
         ResultSet resultSet = null;
         ArrayList<UserDO> userList = Lists.newArrayList();
         try{
-            connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/mall?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone =Asia/Shanghai", "root", "huangxinwei");
             statement = connection.createStatement();
-            resultSet = statement.executeQuery("select * from user");
+            resultSet = statement.executeQuery(sql);
             while (resultSet.next()){
                 UserDO userDO = new UserDO();
                 userDO.setId(resultSet.getLong("id"));
@@ -41,7 +52,7 @@ public class JDBCTests {
                 userDO.setVersion(resultSet.getInt("version"));
                 userList.add(userDO);
             }
-            System.out.println(userList);
+            return userList;
         }catch (Exception e){
             e.printStackTrace();
         }finally {
@@ -55,12 +66,8 @@ public class JDBCTests {
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
-            try {
-                connection.close();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
         }
+        return null;
     }
 
 }
