@@ -19,15 +19,30 @@ public class MyTest {
         // 获取所有的属性
         Field serviceField = clazz.getDeclaredField("userService");
         serviceField.setAccessible(true);
+
         // 只有通过具体的方法才能够设置具体的属性值
         String name = serviceField.getName();
         // 拼接方法的名称
         name = name.substring(0,1).toUpperCase() + name.substring(1,name.length());
         String setMethodNme = "set" + name;
         // 通过方法注入属性的对象
-        Method method = clazz.getMethod(setMethodNme, UserService.class);
-        // 反射
-        method.invoke(userController,new UserService());
+        Method method = null;
+        boolean sign = true;
+
+        try {
+            // 通过方法注入属性的对象
+            method = clazz.getMethod(setMethodNme, UserService.class);
+        }catch (NoSuchMethodException e){
+            sign = false;
+        }
+
+        if (sign){
+            // 反射
+            method.invoke(userController,new UserService());
+        }else {
+            // 暴力法设值（Field）
+            serviceField.set(userController, new UserService());
+        }
         System.out.println(userController.getUserService());
     }
 
